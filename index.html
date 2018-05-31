@@ -1,0 +1,47 @@
+<!DOCtype html>
+<html>
+	<head>
+		<title>電影評分收尋</title>
+		<meta charset="UTF-8"> <!--這行很關鍵，遠程虛擬主機需要這行才能正常顯示中文-->
+	</head>
+
+
+	<body background='pictures/march_lion.png'>
+		<h2>請輸入關鍵字</h2>
+		<form action="" name='movieName'>
+			<input type='text' id='fname' name='fname'>
+			<button type='button' onclick='searchMovie()'>submit</button>
+		</form>	
+
+		<div id ='movie_table'><b>your movie search result will be output here</b></div>
+		<div id ='test'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+
+		<script>
+			var test=document.getElementById("test");
+			test.innerHTML="test";
+		</script>
+
+		<script>
+			function searchMovie(){
+				console.log("searchMovie is active");
+				var	name = document.getElementById('fname').value;
+				console.log(name);
+				if(name.length==0){
+					document.getElementById("movie_table").innerHTML="";
+					return;
+				}
+				var xhttp=new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState==4&&this.status==200){
+						document.getElementById("movie_table").innerHTML=this.responseText;
+					}
+				}
+
+				xhttp.open("GET","searchMovie.php?q="+name,true);
+				xhttp.send(); 
+			}
+		</script>
+		
+	</body>
+
+</html>
