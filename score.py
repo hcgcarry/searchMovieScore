@@ -127,11 +127,16 @@ if response.status_code==requests.codes.ok:
     soup=BeautifulSoup(html,'html.parser')
     #print(soup.prettify())
     douban_result_picture=soup.select("div.item-root > a.cover-link > img.cover")
+    
     print(douban_result_picture)
+    douban_result_picture_url=[]
+    
+    for items in douban_result_picture:
+        douban_result_picture_url.append(items.get("src"))
+
     douban_result_titleAndUrl=soup.select("div.item-root > div.detail > div.title >\
             a.title-text")[0].text
     print(douban_result_titleAndUrl)
-    douban_result_text=[]
     douban_result_url=[]
     douban_result_text=[]
     for items in douban_result_titleAndUrl:
