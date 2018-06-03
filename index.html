@@ -25,12 +25,10 @@
 		</form>	
 
 		<div id ='movie_table'><b>your movie search result will be output here</b></div>
-		<div id ='test'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='meta_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='rotten_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='imdb_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
 
-		<script>
-			var test=document.getElementById("test");
-			test.innerHTML="test";
-		</script>
 
 		<script>
 			function searchMovie(){
@@ -41,15 +39,37 @@
 					document.getElementById("movie_table").innerHTML="";
 					return;
 				}
-				var xhttp=new XMLHttpRequest();
-				xhttp.onreadystatechange = function(){
+				var meta_src=new XMLHttpRequest();
+				meta_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
-						document.getElementById("movie_table").innerHTML=this.responseText;
+						document.getElementById("meta_table").innerHTML=this.responseText;
 					}
 				}
 
-				xhttp.open("GET","searchMovie.php?q="+name,true);
-				xhttp.send(); 
+				meta_src.open("GET","meta_result.php?q="+name,true);
+				meta_src.send(); 
+				//meta_search end 
+				//rotten search start
+				var rotten_src=new XMLHttpRequest();
+				rotten_src.onreadystatechange = function(){
+					if(this.readyState==4&&this.status==200){
+						document.getElementById("rotten_table").innerHTML=this.responseText;
+					}
+				}
+
+				rotten_src.open("GET","rotten_result.php?q="+name,true);
+				rotten_src.send(); 
+				//rotten search end 
+				//imdb search start
+				var imdb_src=new XMLHttpRequest();
+				imdb_src.onreadystatechange = function(){
+					if(this.readyState==4&&this.status==200){
+						document.getElementById("imdb_table").innerHTML=this.responseText;
+					}
+				}
+
+				imdb_src.open("GET","imdb_result.php?q="+name,true);
+				imdb_src.send(); 
 			}
 		</script>
 		
