@@ -7,7 +7,7 @@
 		
 	<style>
 		body{
-			background-image:url(pictures/clannad/483919.jpg);
+			background-image:url(pictures/clannad/fdjk483919.jpg);
 			background-repeat:no-repeat;
 			background-size:cover;
 		}
@@ -26,7 +26,14 @@
 
 		<div id ='movie_table'><b>your movie search result will be output here</b></div>
 		<div id ='meta_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<br>
+		<br>
+		<br>
 		<div id ='rotten_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<br>
+		<br>
+		<br>
+		<br>
 		<div id ='imdb_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
 
 
@@ -46,7 +53,7 @@
 					}
 				}
 
-				meta_src.open("GET","meta_result.php?q="+name,true);
+				meta_src.open("GET","meta_result.php?web=meta&q="+name,true);
 				meta_src.send(); 
 				//meta_search end 
 				//rotten search start
@@ -57,7 +64,7 @@
 					}
 				}
 
-				rotten_src.open("GET","rotten_result.php?q="+name,true);
+				rotten_src.open("GET","meta_result.php?web=rotten&q="+name,true);
 				rotten_src.send(); 
 				//rotten search end 
 				//imdb search start
@@ -68,7 +75,7 @@
 					}
 				}
 
-				imdb_src.open("GET","imdb_result.php?q="+name,true);
+				imdb_src.open("GET","meta_result.php?web=imdb&q="+name,true);
 				imdb_src.send(); 
 			}
 		</script>
