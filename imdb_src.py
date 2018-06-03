@@ -18,12 +18,6 @@ def check_contain_chinese(check_str):
         if '\u4e00' <= ch <= '\u9faf':
             return True
     return False
-def add_score(dic,key_one,key_two,value):
-    keys=dic.keys()
-    if key_one in keys:
-        score[key_one].update({key_two:value})
-    else:
-        score.update({key_one:{key_two:value}})
     
 score=dict()
 
@@ -74,10 +68,11 @@ for items in imdb_select_titleAndrUrl:
 for items in imdb_select_image_tags:
     imdb_select_image.append(items.get("src"))
     
+score['imdb_select_url']=imdb_select_url
+score['imdb_select_image']=imdb_select_image
+score['imdb_select_title']=imdb_select_title
 
-add_score(score,'imdb','imdb_select_url',imdb_select_url)
-add_score(score,'imdb','imdb_select_title',imdb_select_title)
-add_score(score,'imdb','imdb_select_image',imdb_select_image)
+
 
 print(score)
 

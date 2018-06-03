@@ -18,12 +18,6 @@ def check_contain_chinese(check_str):
         if '\u4e00' <= ch <= '\u9faf':
             return True
     return False
-def add_score(dic,key_one,key_two,value):
-    keys=dic.keys()
-    if key_one in keys:
-        score[key_one].update({key_two:value})
-    else:
-        score.update({key_one:{key_two:value}})
     
 
 start_time=time.time()
@@ -86,10 +80,10 @@ tagToNum(score_negative)
 
 meta_pro_count=score_positive[0]+score_mixed[0]+score_negative[0]
 meta_user_count=score_positive[1]+score_mixed[1]+score_negative[1]
-add_score(score,'metacritic','meta_pro_score',meta_pro_score)
-add_score(score,'metacritic','meta_user_score',meta_user_score)
-add_score(score,'metacritic','meta_pro_count',meta_pro_count)
-add_score(score,'metacritic','meta_user_count',meta_user_count)
+score['meta_pro_score']=meta_pro_score
+score['meta_user_score']=meta_user_score
+score['meta_pro_count']=meta_pro_count
+score['meta_user_score']=meta_user_count
 #metacritic收尋完畢
 
 

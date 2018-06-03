@@ -18,12 +18,6 @@ def check_contain_chinese(check_str):
         if '\u4e00' <= ch <= '\u9faf':
             return True
     return False
-def add_score(dic,key_one,key_two,value):
-    keys=dic.keys()
-    if key_one in keys:
-        score[key_one].update({key_two:value})
-    else:
-        score.update({key_one:{key_two:value}})
     
 score=dict()
 start_time=time.time()
@@ -76,12 +70,11 @@ rotten_user_score=int(rotten_user_score)
 rotten_pro_count=int(rotten_pro_count.replace(",",""))
 rotten_user_count=int(rotten_user_count.replace(",",""))
 
+score['rotten_user_score']=rotten_user_score
+score['rotten_pro_score']=rotten_pro_score
+score['rotten_user_count']=rotten_user_count
+score['rotten_pro_count']=rotten_pro_count
 
-
-add_score(score,'rotten','rotten_pro_score',rotten_pro_score)
-add_score(score,'rotten','rotten_user_score',rotten_user_score)
-add_score(score,'rotten','rotten_user_count',rotten_user_count)
-add_score(score,'rotten','rotten_pro_count',rotten_pro_count)
 
 
 
