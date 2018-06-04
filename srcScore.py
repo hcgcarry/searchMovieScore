@@ -45,7 +45,7 @@ headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; \
 rv:23.0) Gecko/20100101 Firefox/23.0'}  
 if sys.argv[2]=='meta':
 
-    #收尋metacritic
+                                                                            #收尋metacritic
     search_url = "http://www.metacritic.com/movie/"+englishname
 
 
@@ -84,14 +84,13 @@ if sys.argv[2]=='meta':
     score['meta_pro_score']=meta_pro_score
     score['meta_user_score']=meta_user_score
     score['meta_pro_count']=meta_pro_count
-    score['meta_user_score']=meta_user_count
-    #metacritic收尋完畢
+    score['meta_user_count']=meta_user_count
+                                                                    #metacritic收尋完畢
 
 
 
 
-#print("it cost %f sec"%(end_time - start_time))
-#search imdb start
+                                                                #search imdb start
 
 
 if sys.argv[2]=='imdb':
@@ -127,8 +126,8 @@ if sys.argv[2]=='imdb':
     score['imdb_select_image']=imdb_select_image
     score['imdb_select_title']=imdb_select_title
 
-
-    end_time=time.time()
+                                                             #imdb結束
+                                                            #rotten start
 
 
 if sys.argv[2]=='rotten':
@@ -148,15 +147,17 @@ if sys.argv[2]=='rotten':
     rotten_user_score=soup.select("div.meter-value > span.superPageFontColor")[0].text
     rotten_user_score=re.search(r"\d+",rotten_user_score).group()
     rotten_pro_count=soup.select("div.hidden-xs > div.superPageFontColor > span")[2].text
-    #user_count有問題
     rotten_user_count=soup.select("div.audience-info.hidden-xs.superPageFontColor > div")[1].text
     rotten_user_count=re.search(r"\d*,?\d+",rotten_user_count).group()
+    rotten_img=soup.select('div.center > img.posterImage')[0].get('src')
 
     rotten_pro_score=int(rotten_pro_score)
     rotten_user_score=int(rotten_user_score)
     rotten_pro_count=int(rotten_pro_count.replace(",",""))
     rotten_user_count=int(rotten_user_count.replace(",",""))
+    print(rotten_img)
 
+    score['rotten_img']=rotten_img
     score['rotten_user_score']=rotten_user_score
     score['rotten_pro_score']=rotten_pro_score
     score['rotten_user_count']=rotten_user_count
@@ -165,15 +166,12 @@ if sys.argv[2]=='rotten':
 
 
 
-#json_score=json.dumps(score)
-#print(json_score)
 
-#rotten收尋完畢
+                                                                        #rotten收尋完畢
 
 
 
-print(score)
-end_time=time.time()
-#print("it cost %f sec"%(end_time - start_time))
+scoreJson=json.dumps(score)
+print(scoreJson)
 
 

@@ -10,6 +10,22 @@
 			background-image:url(pictures/clannad/fdjk483919.jpg);
 			background-repeat:no-repeat;
 			background-size:cover;
+		 	background-color:green;
+		}
+		div#rotten_table{
+			width:450px;
+			float:left;
+			border:2px blue solid;
+		}
+		div#imdb_table{
+			width:300px;
+			float:left;
+			border:2px blue solid;
+		}
+		div#meta_table{
+			width:300px;
+			float:left;
+			border:2px blue solid;
 		}
 	</style>
 		
@@ -23,24 +39,18 @@
 			<input type='text' id='fname' name='fname'>
 			<button type='button' onclick='searchMovie()'>submit</button>
 		</form>	
-
-		<div id ='movie_table'><b>your movie search result will be output here</b></div>
-		<div id ='meta_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
 		<br>
-		<br>
-		<br>
-		<div id ='rotten_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
-		<br>
-		<br>
-		<br>
-		<br>
-		<div id ='imdb_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='movieName'>your search movie name will be output here</h2></div>
+		<div id ='rotten_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='imdb_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='meta_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
 
 
 		<script>
 			function searchMovie(){
 				console.log("searchMovie is active");
 				var	name = document.getElementById('fname').value;
+				document.getElementById("movieName").innerHTML="<h3>your search movie name:"+name+"</h3>";
 				console.log(name);
 				if(name.length==0){
 					document.getElementById("movie_table").innerHTML="";
