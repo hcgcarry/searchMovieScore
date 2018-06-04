@@ -46,37 +46,41 @@
 					document.getElementById("movie_table").innerHTML="";
 					return;
 				}
+																	//meta search start
 				var meta_src=new XMLHttpRequest();
 				meta_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
 						document.getElementById("meta_table").innerHTML=this.responseText;
 					}
 				}
-
-				meta_src.open("GET","meta_result.php?web=meta&q="+name,true);
+				meta_src.open("GET","movieScore.php?web=meta&q="+name,true);
 				meta_src.send(); 
-				//meta_search end 
-				//rotten search start
+																	//meta_search end 
+
+
+																	//rotten search start
 				var rotten_src=new XMLHttpRequest();
 				rotten_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
 						document.getElementById("rotten_table").innerHTML=this.responseText;
 					}
 				}
-
-				rotten_src.open("GET","meta_result.php?web=rotten&q="+name,true);
+				rotten_src.open("GET","movieScore.php?web=rotten&q="+name,true);
 				rotten_src.send(); 
-				//rotten search end 
-				//imdb search start
+																	//rotten search end 
+
+
+																	//imdb search start
 				var imdb_src=new XMLHttpRequest();
 				imdb_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
 						document.getElementById("imdb_table").innerHTML=this.responseText;
 					}
 				}
-
-				imdb_src.open("GET","meta_result.php?web=imdb&q="+name,true);
+				imdb_src.open("GET","movieScore.php?web=imdb&q="+name,true);
 				imdb_src.send(); 
+																	//imdb search end
+
 			}
 		</script>
 		
