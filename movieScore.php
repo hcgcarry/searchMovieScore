@@ -1,6 +1,6 @@
 <?php 
 
-error_reporting(0); //關掉php的詭異報錯題示
+//error_reporting(0); //關掉php的詭異報錯題示
 $movieName=$_GET['q']; $web=$_GET['web'];
 
 
@@ -41,9 +41,8 @@ switch($web){
 	case 'imdb':
 		$command="/usr/bin/python3 srcScore.py ".$movieName." imdb";
 		$movieScore_json=exec($command);
-		$movieScore=json_decode(movieScore_json,true);
-		echo "<h3>imdb</h3>";
-		print($movieScore_json);
+		echo $movieScore_json;
+		
 		break;
 }
 

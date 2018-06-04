@@ -42,7 +42,8 @@
 		<br>
 		<div id ='movieName'>your search movie name will be output here</h2></div>
 		<div id ='rotten_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
-		<div id ='imdb_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='imdb_table'>
+		</div> <!--注意 藥用script 改變的tag text要再script 之前-->
 		<div id ='meta_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
 
 
@@ -84,7 +85,32 @@
 				var imdb_src=new XMLHttpRequest();
 				imdb_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
-						document.getElementById("imdb_table").innerHTML=this.responseText;
+
+						var imdbResult = this.responseText;
+						imdbResult= JSON.parse(imdbResult);
+						console.log(imdbResult);
+						var index;
+						var imdblist="";
+						console.log(imdbResult.imdb_select_image.length);
+
+						for(index=0;index<imdbResult.imdb_select_title.length;index++){
+							imdblist+="<div id='dydiv'>";
+								if(index<imdbResult.imdb_select_image.length){
+									imdblist+=`<img src=${imdbResult.imdb_select_image[index]}>`;
+								}
+								else{
+									imdblist+="<span id='dyspan'>"+"image no found"+"</span>";
+								}
+							imdblist+="<span id='dyspan'>"+imdbResult.imdb_select_title[index]+"</span>";
+							imdblist+="</div>";
+
+
+						}
+						console.log(imdblist);
+						document.getElementById("imdb_table").innerHTML=imdblist;
+
+							
+
 					}
 				}
 				imdb_src.open("GET","movieScore.php?web=imdb&q="+name,true);
@@ -93,6 +119,13 @@
 
 			}
 		</script>
+		<script>
+			function imdbSearch(){
+			}
+		</script>
+
+			
+			
 		
 	</body>
 
