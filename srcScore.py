@@ -94,6 +94,7 @@ if sys.argv[2]=='meta':
 
 
 if sys.argv[2]=='imdb':
+    englishname=englishname.replace("%20","+")
 
     url_parems={'ref_':'nv_sr_fn','q':englishname,'s':'all'}
 
