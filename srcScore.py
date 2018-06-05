@@ -107,24 +107,24 @@ if sys.argv[2]=='imdb':
     # 使用剖析器为html.parser
     #注意result還要.text
     soup = BeautifulSoup(result.text, 'html.parser')
+    
+    
+    imdb_select_url=soup.select('tr.findResult.odd > td.result_text > a')[0].get("href")
+    search_url='https://www.imdb.com'+imdb_select_url
+    result=requests.get(search_url)
+    soup = BeautifulSoup(result.text, 'html.parser')
+    
+    imdb_score=soup.select('div.ratings_wrapper > div.imdbRating > div.ratingValue')[0].text
+    imdb_score=int(float(re.search(r'\d.\d',imdb_score).group())*10)
+    imdb_count=soup.select('div.ratings_wrapper > div.imdbRating > a > span')[0].text
 
-    imdb_select_titleAndrUrl=soup.select('tr.findResult.odd > td.result_text > a')
-    imdb_select_image_tags=soup.select('tr.findResult.odd > td.primary_photo > a > img')
-    imdb_select_url=[]
-    imdb_select_title=[]
-    imdb_select_image=[]
+    imdb_count=imdb_count.replace(",","")
+    print(imdb_score)
 
-    for items in imdb_select_titleAndrUrl:
-        imdb_select_url.append('https://www.imdb.com'+items.get("href"))
-        imdb_select_title.append(items.text)
-        
-    for items in imdb_select_image_tags:
-            imdb_select_image.append(items.get("src"))
-
-        
-    score['imdb_select_url']=imdb_select_url
-    score['imdb_select_image']=imdb_select_image
-    score['imdb_select_title']=imdb_select_title
+    print(imdb_count)
+    score['imdb_count']=imdb_count
+    score['imdb_url']=search_url
+    score['imdb_score']=imdb_score
 
                                                              #imdb結束
                                                             #rotten start

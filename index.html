@@ -85,34 +85,11 @@
 				var imdb_src=new XMLHttpRequest();
 				imdb_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
-
-						var imdbResult = this.responseText;
-						imdbResult= JSON.parse(imdbResult);
-						console.log(imdbResult);
-						var index;
-						var imdblist="";
-						console.log(imdbResult.imdb_select_image.length);
-
-						for(index=0;index<imdbResult.imdb_select_title.length;index++){
-							imdblist+="<div id='dydiv'>";
-								if(index<imdbResult.imdb_select_image.length){
-									imdblist+=`<img src=${imdbResult.imdb_select_image[index]}>`;
-								}
-								else{
-									imdblist+="<span id='dyspan'>"+"image no found"+"</span>";
-								}
-							imdblist+="<span id='dyspan'>"+imdbResult.imdb_select_title[index]+"</span>";
-							imdblist+="</div>";
-
-
-						}
-						console.log(imdblist);
-						document.getElementById("imdb_table").innerHTML=imdblist;
-
-							
+						document.getElementById("imdb_table").innerHTML=this.responseText;
 
 					}
 				}
+
 				imdb_src.open("GET","movieScore.php?web=imdb&q="+name,true);
 				imdb_src.send(); 
 																	//imdb search end
