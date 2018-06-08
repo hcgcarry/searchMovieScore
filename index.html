@@ -5,42 +5,104 @@
 		<title>電影評分收尋</title>
 		<meta charset="UTF-8"> <!--這行很關鍵，遠程虛擬主機需要這行才能正常顯示中文-->
 		
-	<style>
-		body{
-			background-image:url(pictures/clannad/fdjk483919.jpg);
-			background-repeat:no-repeat;
-			background-size:cover;
-		}
-	</style>
+		<style>
+			body{
+				background-image:url(pictures/deathnote/39868.jpg);
+				background-repeat:no-repeat;
+				background-size:cover;
+				background-color:green;
+			}
+			div{
+				background-color:gray;
+				border-radius:8px;
+				text-align:center;
+				padding:10px;
+			}
+			div.search{
+				background-color:transparent;
+			}
+			div#rotten_table{
+				width:40%;
+				margin-left:50px;
+				float:left;
+				border:2px solid;
+			}
+			div#imdb_table{
+				width:25%;
+				float:left;
+				border:2px solid;
+			}
+			div#meta_table{
+				width:25%;
+				float:left;
+				border:2px solid;
+			}
+			div.search{
+				height:100px;
+			}
+			span.score{
+				float:left;
+			}
+
+
+
+
+			span.title{
+				background-color:gray;
+				font-size:20px;
+				text-align:center;
+				border-radius:6px;
+				border:2px solid;
+				margin:20px;
+				padding:5px;
+				
+			}
+		</style>
 		
 	</head>
 
 
 
-	<body background='pictures/march_lion.png'>
-		<h2>請輸入關鍵字</h2>
-		<form action="" name='movieName'>
-			<input type='text' id='fname' name='fname'>
-			<button type='button' onclick='searchMovie()'>submit</button>
-		</form>	
+	<body>
+		<div class='search'>
+			<span class='title'>請輸入關鍵字</span>
+			<br>
+			<br>
+			<span>
+			<form action='javascript:void(0);' name='movieName'>
+				<input  type='text' id='fname' name='fname'>
+				<button type='button' onclick='searchMovie()'>submit</button>
+			</form>	
+			</span>
+			<br>
+			<span id='movieName' class='title'> your search movie will be output below</span>
+		</div>
+		<br>
+		<br>
+		<div id ='rotten_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		</div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='meta_table'></div> <!--注意 藥用script 改變的tag text要再script 之前-->
+		<div id ='imdb_table'>
+		<script>
+			document.onkeydown=function(){
+				var keycode=event.which;
+				if(keycode==13)searchMovie();
+				if(keycode==73)focuseInput();
+				
+			}
 
-		<div id ='movie_table'><b>your movie search result will be output here</b></div>
-		<div id ='meta_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
-		<br>
-		<br>
-		<br>
-		<div id ='rotten_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
-		<br>
-		<br>
-		<br>
-		<br>
-		<div id ='imdb_table'>no test</div> <!--注意 藥用script 改變的tag text要再script 之前-->
-
+		</script>
+		<script>
+			function focuseInput(){
+				var input=document.getElementById("fname");
+				input.focus();
+			}
+		</script>
 
 		<script>
 			function searchMovie(){
-				console.log("searchMovie is active");
 				var	name = document.getElementById('fname').value;
+				document.getElementById("movieName").innerHTML="your search movie name:"+name;
 				console.log(name);
 				if(name.length==0){
 					document.getElementById("movie_table").innerHTML="";
@@ -75,14 +137,23 @@
 				imdb_src.onreadystatechange = function(){
 					if(this.readyState==4&&this.status==200){
 						document.getElementById("imdb_table").innerHTML=this.responseText;
+
 					}
 				}
+
 				imdb_src.open("GET","movieScore.php?web=imdb&q="+name,true);
 				imdb_src.send(); 
 																	//imdb search end
 
 			}
 		</script>
+		<script>
+			function imdbSearch(){
+			}
+		</script>
+
+			
+			
 		
 	</body>
 
