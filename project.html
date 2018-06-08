@@ -50,19 +50,37 @@
 				padding:5px;
 
 			}
+			.rewrite{
+				width:50px;
+				height:20px;
+			}
 		</style>
 
 	</head>
 	<body>
-		<select id='list'>
-		</select>
-	</body>
+		<div id='list'>
+			<div class='listop'>
+				<span id='0'>第一個</span>
+				<button class='rewrite' onclick='rewrite(this)'>
+			</div>
+			<div class='listop'>
+				<span id='1'>第二個</span>
+				<button class='rewrite' onclick='rewrite()'>
+			</div>
+			<div class='listop'>第三個</span>
+				<span id='2'>
+				<button class='rewrite' onclick='rewrite()'>
+			</div>
+		</div>
 
+			
+	</body>
 	<script>
-		function createlist(){
-			var list=document.getElementById("list");
-			list.options[list.options.length]=new Option();
-		}
+		listindex=0;
+	</script>
+	<script>
+		function rewrite(){
+
 	</script>
 			
 </html>

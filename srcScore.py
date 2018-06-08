@@ -1,40 +1,69 @@
-#-*- coding: UTF-8 -*- 
 from bs4 import BeautifulSoup
 from urllib import request
 import urllib
-import re
+import traceback
 import requests
 import chardet
 import urllib.parse  
 import json
 import time
+import re
 import sys
 def tagToNum(arr):
     for index, items in enumerate(arr):
         arr[index]=int(items.text.replace(",",""))
-
 def check_contain_chinese(check_str):
     for ch in check_str:
         if '\u4e00' <= ch <= '\u9faf':
             return True
     return False
     
+    
+def check_if_english(uchar):
+    if (uchar >='\u0041' and uchar <='\u005A') or (uchar >='\u0061' and uchar <='\u007A'):
+        return True
+    else:
+        return False
 
-start_time=time.time()
+
 score=dict()
 
-
-print(len(sys.argv))
 #判斷是否式shell 啟動
 if(len(sys.argv))==3:
-    name_input=sys.argv[1] 
+    name_input=sys.argv[1]
 else:
     name_input=input("please input what movie you want to search ,better input english:\n")
 
+
+print(name_input)
+#把傳過來無法使用的字串轉成unicode字串
+try:
+    if check_if_english(name_input)==False:
+        uniname="" 
+        print("not english")
+        name_input=name_input.replace("\\u","",1)
+        name_input=name_input.split("\\u")
+        print(name_input)
+        for items in name_input:
+            items=int(items,16)
+            uniname+=chr(items)
+            
+        name_input=uniname
+
+        print(name_input)
+        print(len(name_input))
+        print(type(name_input))
+    #print([ord(x) for x in name_input])
+    #記得要except他才做的下去 我也不知道為什麼
+except:
+    traceback.print_exc()
+    print("error:",sys.exc_info()[1])
+
+
 #判斷輸入的是否式中文名字
-check_if_ch=check_contain_chinese(name_input)
-if check_if_ch == True:
+if check_contain_chinese(name_input)== True:
     import search_name 
+    print("import search_name")
     englishname=search_name.enName(name_input)
 else:
     englishname=name_input
@@ -85,6 +114,7 @@ if sys.argv[2]=='meta':
     score['meta_user_score']=meta_user_score
     score['meta_pro_count']=meta_pro_count
     score['meta_user_count']=meta_user_count
+    score['meta_url']=search_url
                                                                     #metacritic收尋完畢
 
 
@@ -162,6 +192,7 @@ if sys.argv[2]=='rotten':
     score['rotten_pro_score']=rotten_pro_score
     score['rotten_user_count']=rotten_user_count
     score['rotten_pro_count']=rotten_pro_count
+    score['rotten_url']=search_url
 
 
 

@@ -2,17 +2,20 @@
 
 //error_reporting(0); //關掉php的詭異報錯題示
 $movieName=$_GET['q']; $web=$_GET['web'];
-$movieName=EscapeShellCmd($movieName);$web=EscapeShellCmd($web);
+$saveMovieName=$movieName;
+$movieName=json_encode($movieName);
+
+
 
 switch($web){
 	case 'meta':
-		$saveMovieName=$movieName;
 		$movieName=str_replace(" ","-",$movieName);
 		$command="/usr/bin/python3 srcScore.py ".$movieName." meta";
 		$movieScore_json=exec($command);
 		$movieScore=json_decode($movieScore_json,true);
+		$url=$movieScore['meta_url'];
 		echo "<h3>metacritic</h3>";
-		echo "<a target='_blank' href='https://www.metacritic.com/movie/$movieName'>visit metacritic $saveMovieName</a><br>";
+		echo "<a target='_blank' href=$url>visit metacritic $saveMovieName</a><br>";
 		echo "專業評價:".$movieScore["meta_pro_score"]."<br>";
 		echo "專業評分人數:".$movieScore["meta_pro_count"]."<br>";
 		echo "<br><br>";
@@ -21,11 +24,14 @@ switch($web){
 		break;
 
 	case 'rotten':
-		$saveMovieName=$movieName;
 		$movieName=str_replace(" ","_",$movieName);
 		$command="/usr/bin/python3 srcScore.py ".$movieName." rotten";
-		$movieScore_json=exec($command);
+		$movieScore_json=exec($command,$output,$return);
 		$movieScore=json_decode($movieScore_json,true);
+		$url=$movieScore['rotten_url'];
+		print_r($output);
+		echo "return:";
+		print_r($return);
 		//rotten image
 		echo "<span style='float:left;'>";
 		printf("<img src='%s' alt='movie img not found'>",$movieScore['rotten_img']);
@@ -34,7 +40,7 @@ switch($web){
 		echo "<span style='margin-left:30px;float:left;'>";
 		
 		echo "<h3>爛番茄</h3>";
-		echo "<a target='_blank' href='https://www.rottentomatoes.com/m/$movieName'>visit rottentomatoes $saveMovieName</a><br>";
+		echo "<a target='_blank' href=$url>visit rottentomatoes $saveMovieName</a><br>";
 		echo "專業評價:".$movieScore["rotten_pro_score"]."<br>";
 		echo "專業評分人數:".$movieScore["rotten_pro_count"]."<br>";
 		echo "<br><br>";
@@ -46,7 +52,6 @@ switch($web){
 
 
 	case 'imdb':
-		$saveMovieName=$movieName;
 		$movieName=str_replace(" ","+",$movieName);
 		$command="/usr/bin/python3 srcScore.py ".$movieName." imdb";
 		$movieScore_json=exec($command);
@@ -58,8 +63,7 @@ switch($web){
 
 		
 		break;
-}
-
+} 
 	
 		
 
