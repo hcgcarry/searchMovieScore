@@ -6,35 +6,20 @@
 
 		<style>
 			body{
-				background-image:url(pictures/deathnote/39868.jpg);
+				background-image:url("pictures/gradient_bg.png");
+				background-repeat: repeat-x;
+
 				background-repeat:no-repeat;
 				background-size:cover;
 				background-color:green;
 			}
 			div{
-				background-color:gray;
 				border-radius:8px;
 				text-align:center;
 				padding:10px;
 			}
 			div.search{
 				background-color:transparent;
-			}
-			div#rotten_table{
-				width:450px;
-				margin-left:50px;
-				float:left;
-				border:2px solid;
-			}
-			div#imdb_table{
-				width:300px;
-				float:left;
-				border:2px solid;
-			}
-			div#meta_table{
-				width:300px;
-				float:left;
-				border:2px solid;
 			}
 			div.search{
 				height:100px;
@@ -44,42 +29,138 @@
 				font-size:20px;
 				text-align:center;
 				border-radius:6px;
-				border:2px
-			solid;
+				border:2px solid;
 				margin:20px;
 				padding:5px;
 
 			}
 			.rewrite{
-				width:50px;
-				height:20px;
+				border-radius:16px;
+				border:black 2px solid;
 			}
+			.rewrite:hover{
+				background-color:blue;
+				color:white;
+			}
+
+			.num{
+				border:2px double black;
+				padding:5px;
+				background-color:green;
+				width:40px;
+				height:20px;
+				text-align:center;
+			}
+			div.hint{
+				width:40%;
+				height:200px;
+				float:left;
+			}
+			div#list{
+				float:left;
+			}
+
 		</style>
 
 	</head>
 	<body>
+		<div class='hint'>
+			使用說明:先點擊更新將7個開獎末三碼輸入完成之後,
+			在最上面的輸入欄輸入要對獎的末三碼，按enter即可
+			送出並自動檢測有沒有中獎，如果有中獎的話會彈出
+			提醒，沒中的話就繼續輸入。
+			<br>
+		<a target='_blank' href='https://www.etax.nat.gov.tw/etw-main/web/ETW183W1/'>財政部統一發票網站連結</a>
+		</div>
 		<div id='list'>
+			<span>請在這裡輸入要對獎的末三碼</span>
+			<form action='javascript:void(0);'>
+				<input id='input' type='text' >
+				<button type='button' onclick='checknum()'>enter</button>
+			</form>
+			<h3> 請按更新輸入開獎末三碼</h3>
 			<div class='listop'>
-				<span id='0'>第一個</span>
-				<button class='rewrite' onclick='rewrite(this)'>
+				<span class='num' id='1'>第一個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
+			</div>
+
+			<div class='listop'>
+				<span class='num' id='2'>第二個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
+			</div>
+
+			<div class='listop'>
+				<span class='num' id ='3'>第三個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
+			</div>
+
+			<div class='listop'>
+				<span class='num' id='4'>第四個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
 			</div>
 			<div class='listop'>
-				<span id='1'>第二個</span>
-				<button class='rewrite' onclick='rewrite()'>
+				<span class='num' id='5'>第五個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
 			</div>
-			<div class='listop'>第三個</span>
-				<span id='2'>
-				<button class='rewrite' onclick='rewrite()'>
+			<div class='listop'>
+				<span class='num' id='6'>第六個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
+			</div>
+			<div class='listop'>
+				<span class='num' id='7'>第七個</span>
+				<button class='rewrite' onclick='rewrite(this)'>更新</button>
 			</div>
 		</div>
-
 			
 	</body>
 	<script>
-		listindex=0;
+		document.onkeydown=function(){
+			var key=event.which;
+			if(key==13)checknum();
+		}
 	</script>
+
 	<script>
-		function rewrite(){
+		function checknum(){
+			console.log("fuck");
+
+			var items=document.getElementById("input");
+			//check if is number
+			console.log(items.value);
+			if(!/^[0-9]{3}$/.test(items.value)){
+					alert("輸入錯誤 只能輸入3個數字 按enter繼續")
+					items.value='';
+				}
+			var listnum;
+			for(var index=1;index<=7;index++){
+				listnum=document.getElementById(index);
+				console.log(listnum.value);
+				if(listnum.innerHTML==items.value){
+					alert("恭喜中獎了");
+				}
+			}
+			items.value="";
+			items.focus();
+			
+		}
+	</script>
+
+
+
+	<script>
+		function rewrite(listid){
+			var id=listid.previousSibling;
+			id=id.previousSibling;
+			var inputtext=prompt("請輸入對獎末三碼","")
+			if(!/^[0-9]{3}$/.test(inputtext)){
+					alert("輸入錯誤 只能輸入3個數字 按enter繼續")
+			}
+			else{
+ 			id.innerHTML=inputtext;
+			}
+		}
+
+				
 
 	</script>
 			
