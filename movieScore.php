@@ -29,9 +29,8 @@ switch($web){
 		$movieScore_json=exec($command,$output,$return);
 		$movieScore=json_decode($movieScore_json,true);
 		$url=$movieScore['rotten_url'];
-		print_r($output);
-		echo "return:";
-		print_r($return);
+		//print_r($output);
+		//print_r($return);
 		//rotten image
 		echo "<span style='float:left;'>";
 		printf("<img src='%s' alt='movie img not found'>",$movieScore['rotten_img']);
